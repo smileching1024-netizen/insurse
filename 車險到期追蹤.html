@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>車險到期追蹤</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#FBF6EA;
+    --ink-soft:#FFFFFF;
+    --ink-card:#FFFFFF;
+    --paper:#FFFFFF;
+    --paper-dim:#F2E9D6;
+    --amber:#B5751F;
+    --amber-bg:#E3A63E;
+    --navy:#1F4E5F;
+    --rust:#BE4B29;
+    --sage:#3D7F5C;
+    --muted:#9C9280;
+    --line:#E7DEC7;
+    --line-paper:#E7DEC7;
+    --text-hi:#2E2A21;
+    --text-lo:#8A8069;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--text-hi);
+    font-family:'Inter',sans-serif;
+    min-height:100vh;
+  }
+  .wrap{max-width:980px;margin:0 auto;padding:32px 20px 80px;}
+  header.top{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    flex-wrap:wrap;gap:16px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:20px;margin-bottom:28px;
+  }
+  .brand-eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--amber);margin:0 0 6px;
+  }
+  h1{
+    font-family:'Zilla Slab',serif;font-weight:700;
+    font-size:34px;margin:0;letter-spacing:.01em;
+    color:var(--navy);
+  }
+  .top-meta{font-size:13px;color:var(--text-lo);text-align:right;}
+  .top-meta b{color:var(--text-hi);font-family:'IBM Plex Mono',monospace;}
+
+  .privacy-note{
+    font-size:12px;color:var(--text-lo);margin:0 0 22px;
+    display:flex;align-items:center;gap:7px;
+  }
+  .privacy-note .dot{width:6px;height:6px;border-radius:50%;background:var(--sage);flex:none;}
+
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px;}
+  .stat{
+    background:var(--ink-card);border:1px solid var(--line);border-radius:10px;
+    padding:16px 18px;
+  }
+  .stat .n{font-family:'Zilla Slab',serif;font-size:30px;font-weight:700;line-height:1;}
+  .stat .l{font-size:12px;color:var(--text-lo);margin-top:6px;letter-spacing:.03em;}
+  .stat.overdue .n{color:var(--rust);}
+  .stat.soon .n{color:var(--amber);}
+  .stat.ok .n{color:var(--sage);}
+
+  .panel{
+    background:var(--ink-card);border:1px solid var(--line);border-radius:12px;
+    padding:22px;margin-bottom:24px;
+  }
+  .panel h2{font-family:'Zilla Slab',serif;font-size:19px;margin:0 0 4px;color:var(--navy);}
+  .panel .sub{font-size:13px;color:var(--text-lo);margin:0 0 16px;}
+
+  .dropzone{
+    border:1.5px dashed var(--line);border-radius:10px;
+    background:var(--ink);
+    padding:28px 20px;text-align:center;cursor:pointer;
+    transition:border-color .15s,background .15s;
+  }
+  .dropzone:hover, .dropzone.drag{border-color:var(--amber-bg);background:rgba(227,166,62,.10);}
+  .dropzone .ico{font-size:26px;margin-bottom:8px;}
+  .dropzone .t1{font-size:14px;color:var(--text-hi);margin-bottom:4px;}
+  .dropzone .t2{font-size:12px;color:var(--text-lo);}
+  input[type=file]{display:none;}
+
+  .batch-option{
+    display:flex;align-items:center;gap:9px;margin-top:14px;font-size:13px;color:var(--text-hi);cursor:pointer;
+  }
+  .batch-option input{accent-color:var(--amber-bg);width:15px;height:15px;cursor:pointer;}
+
+  .file-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+  .chip{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;
+    background:var(--ink);border:1px solid var(--line);border-radius:20px;
+    padding:5px 12px;color:var(--text-lo);display:flex;align-items:center;gap:8px;
+  }
+  .chip button{background:none;border:none;color:var(--muted);cursor:pointer;font-size:13px;padding:0;}
+
+  .btn{
+    font-family:'Inter',sans-serif;font-weight:600;font-size:14px;
+    border:none;border-radius:8px;padding:11px 20px;cursor:pointer;
+    transition:transform .1s, opacity .15s;
+  }
+  .btn:active{transform:scale(.98);}
+  .btn:disabled{opacity:.45;cursor:not-allowed;}
+  .btn-primary{background:var(--amber-bg);color:#2A1B06;}
+  .btn-primary:hover:not(:disabled){opacity:.88;}
+  .btn-ghost{background:transparent;color:var(--text-hi);border:1px solid var(--line);}
+  .btn-ghost:hover{border-color:var(--muted);}
+  .btn-danger{background:transparent;color:var(--rust);border:1px solid rgba(190,75,41,.35);}
+  .btn-row{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;}
+  .btn-sm{padding:8px 14px;font-size:13px;}
+
+  .status-line{font-size:13px;color:var(--amber);margin-top:12px;display:none;align-items:center;gap:8px;}
+  .status-line.show{display:flex;}
+  .spin{width:14px;height:14px;border-radius:50%;border:2px solid rgba(227,166,62,.35);border-top-color:var(--amber-bg);animation:spin 0.8s linear infinite;flex:none;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .err-line{font-size:13px;color:var(--rust);margin-top:12px;display:none;}
+  .err-line.show{display:block;}
+
+  /* review form */
+  .field-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px;}
+  .field-grid.full{grid-template-columns:1fr;}
+  .field{display:flex;flex-direction:column;gap:6px;}
+  .field label{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--text-lo);}
+  .field input, .field textarea{
+    background:var(--ink);border:1px solid var(--line);border-radius:7px;
+    padding:9px 11px;color:var(--text-hi);font-family:'Inter',sans-serif;font-size:14px;
+  }
+  .field input:focus, .field textarea:focus{outline:none;border-color:var(--amber-bg);}
+  .field.mono input{font-family:'IBM Plex Mono',monospace;}
+  .field textarea{resize:vertical;min-height:70px;font-family:'IBM Plex Mono',monospace;font-size:13px;}
+  .section-label{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--amber);margin:22px 0 4px;border-top:1px solid var(--line);padding-top:16px;
+  }
+  .section-label:first-of-type{border-top:none;padding-top:0;margin-top:6px;}
+  .note{font-size:12px;color:var(--text-lo);margin-top:4px;}
+
+  /* list */
+  .list-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:12px;flex-wrap:wrap;}
+  .list-head h2{font-family:'Zilla Slab',serif;font-size:20px;margin:0;color:var(--navy);}
+  .list-head-right{display:flex;align-items:center;gap:14px;}
+  .empty{
+    text-align:center;padding:50px 20px;color:var(--text-lo);
+    border:1px dashed var(--line);border-radius:12px;font-size:14px;
+    background:var(--ink-card);
+  }
+  .cards{display:flex;flex-direction:column;gap:10px;}
+  .card{
+    background:var(--ink-card);border:1px solid var(--line);border-radius:10px;
+    padding:16px 18px;display:flex;align-items:center;gap:18px;cursor:pointer;
+    transition:border-color .15s, box-shadow .15s;
+  }
+  .card:hover{border-color:var(--muted);box-shadow:0 2px 10px rgba(46,42,33,.06);}
+  .card.st-overdue{border-left:3px solid var(--rust);}
+  .card.st-soon{border-left:3px solid var(--amber-bg);}
+  .card.st-ok{border-left:3px solid var(--sage);}
+
+  .plate{
+    flex:none;background:#F5F5F0;border:2px solid #1a1a1a;border-radius:6px;
+    padding:6px 10px;text-align:center;box-shadow:inset 0 0 0 1.5px #F5F5F0, inset 0 0 0 3px #1a1a1a;
+    min-width:118px;
+  }
+  .plate .pl-top{font-size:7px;letter-spacing:.14em;color:#333;font-family:'IBM Plex Mono',monospace;margin-bottom:1px;}
+  .plate .pl-num{font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:17px;color:#111;letter-spacing:.03em;}
+
+  .card-body{flex:1;min-width:0;}
+  .card-body .owner{font-family:'Zilla Slab',serif;font-size:16px;font-weight:600;margin-bottom:3px;}
+  .card-body .veh{font-size:12.5px;color:var(--text-lo);font-family:'IBM Plex Mono',monospace;}
+
+  .card-right{flex:none;text-align:right;}
+  .badge{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;
+    padding:4px 10px;border-radius:20px;display:inline-block;margin-bottom:6px;
+  }
+  .badge.st-overdue{background:rgba(190,75,41,.14);color:var(--rust);}
+  .badge.st-soon{background:rgba(227,166,62,.20);color:var(--amber);}
+  .badge.st-ok{background:rgba(61,127,92,.14);color:var(--sage);}
+  .card-right .exp{font-size:12px;color:var(--text-lo);}
+  .card-right .prem{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--text-hi);margin-top:2px;}
+
+  /* modal */
+  .modal-bg{
+    display:none;position:fixed;inset:0;background:rgba(46,42,33,.55);
+    align-items:flex-start;justify-content:center;padding:40px 16px;overflow-y:auto;z-index:50;
+  }
+  .modal-bg.show{display:flex;}
+  .modal{
+    background:var(--ink-card);border:1px solid var(--line);border-radius:14px;
+    max-width:640px;width:100%;padding:26px;margin-bottom:40px;
+    box-shadow:0 12px 40px rgba(46,42,33,.18);
+  }
+  .modal-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;}
+  .modal-head h2{font-family:'Zilla Slab',serif;font-size:22px;margin:0;color:var(--navy);}
+  .modal-close{background:none;border:none;color:var(--text-lo);font-size:20px;cursor:pointer;line-height:1;}
+
+  @media (max-width:640px){
+    .field-grid{grid-template-columns:1fr;}
+    .stats{grid-template-columns:1fr;}
+    .card{flex-wrap:wrap;}
+    .card-right{text-align:left;}
+    h1{font-size:26px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div>
+      <p class="brand-eyebrow">保單管理 · 到期提醒</p>
+      <h1>車險到期追蹤</h1>
+    </div>
+    <div class="top-meta">今天是 <b id="todayLabel"></b></div>
+  </header>
+
+  <p class="privacy-note"><span class="dot"></span>資料僅儲存於您個人的帳號中，與其他使用者互不共享——分享此網頁給同事使用，彼此看到的都是各自輸入的資料。</p>
+
+  <div class="stats">
+    <div class="stat overdue"><div class="n" id="statOverdue">0</div><div class="l">已逾期</div></div>
+    <div class="stat soon"><div class="n" id="statSoon">0</div><div class="l">30 天內到期</div></div>
+    <div class="stat ok"><div class="n" id="statOk">0</div><div class="l">正常</div></div>
+  </div>
+
+  <div class="panel">
+    <h2>上傳車險保單</h2>
+    <p class="sub">上傳保單照片或 PDF，AI 會自動判讀並帶入下方欄位，確認無誤後再儲存。</p>
+
+    <div class="dropzone" id="dropzone">
+      <div class="ico">📄</div>
+      <div class="t1">點擊選擇檔案，或拖曳保單影像至此</div>
+      <div class="t2">支援 JPG、PNG、PDF，可一次選多張（例如同一保單正反面，或一次上傳多張不同保單）</div>
+    </div>
+    <input type="file" id="fileInput" accept="image/*,application/pdf" multiple>
+
+    <div class="file-chips" id="fileChips"></div>
+
+    <label class="batch-option" id="batchOption" style="display:none;">
+      <input type="checkbox" id="batchModeToggle" checked>
+      <span>這些檔案是同一張保單的正反面／附件（合併辨識為一筆）</span>
+    </label>
+    <p class="note" id="batchHint" style="display:none;">取消勾選後，會把每個檔案各自當成一張獨立保單，依序辨識並逐筆讓你確認。</p>
+
+    <div class="btn-row">
+      <button class="btn btn-primary" id="extractBtn" disabled>辨識保單內容</button>
+      <button class="btn btn-ghost" id="manualBtn">改為手動輸入</button>
+    </div>
+    <div class="status-line" id="statusLine"><div class="spin"></div><span id="statusText">辨識中…</span></div>
+    <div class="err-line" id="errLine"></div>
+  </div>
+
+  <div class="list-head">
+    <h2>追蹤清單</h2>
+    <div class="list-head-right">
+      <span class="note" id="countLabel"></span>
+      <button class="btn btn-ghost btn-sm" id="exportBtn">匯出 CSV</button>
+    </div>
+  </div>
+  <div id="listArea"></div>
+
+</div>
+
+<!-- Review / edit modal -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="modalTitle">確認保單資訊</h2>
+      <button class="modal-close" id="modalClose">✕</button>
+    </div>
+    <p class="sub" id="modalSub">請核對 AI 判讀結果，日期若非西元年請自行修正。</p>
+
+    <div class="section-label">被保人資料</div>
+    <div class="field-grid">
+      <div class="field"><label>姓名</label><input id="f_insuredName"></div>
+      <div class="field mono"><label>身分證 / 統一編號</label><input id="f_insuredId"></div>
+      <div class="field"><label>聯絡電話</label><input id="f_insuredPhone"></div>
+      <div class="field"><label>地址</label><input id="f_insuredAddress"></div>
+    </div>
+
+    <div class="section-label">車輛資料</div>
+    <div class="field-grid">
+      <div class="field mono"><label>車牌號碼</label><input id="f_plateNumber"></div>
+      <div class="field mono"><label>引擎號碼</label><input id="f_engineNumber"></div>
+      <div class="field mono"><label>車身號碼</label><input id="f_chassisNumber"></div>
+      <div class="field"><label>排氣量 (cc)</label><input id="f_displacement"></div>
+      <div class="field"><label>廠牌</label><input id="f_brand"></div>
+      <div class="field"><label>車系 / 車型</label><input id="f_model"></div>
+      <div class="field"><label>原始發照年月</label><input id="f_originalRegDate" placeholder="YYYY-MM"></div>
+      <div class="field"><label>出廠年月</label><input id="f_manufactureDate" placeholder="YYYY-MM"></div>
+      <div class="field"><label>乘載人數</label><input id="f_seatCount" placeholder="例如 5"></div>
+    </div>
+
+    <div class="section-label">投保資料</div>
+    <div class="field-grid">
+      <div class="field"><label>保險公司</label><input id="f_insurerName"></div>
+      <div class="field mono"><label>保單號碼</label><input id="f_policyNumber"></div>
+      <div class="field"><label>責任等級係數</label><input id="f_liabilityRatingLevel" placeholder="例如 6"></div>
+      <div class="field"><label>總保費</label><input id="f_totalPremium"></div>
+      <div class="field"><label>強制險要保始日</label><input id="f_compulsoryStartDate" placeholder="YYYY-MM-DD"></div>
+      <div class="field"><label>強制險保險迄日（到期日）</label><input id="f_compulsoryEndDate" placeholder="YYYY-MM-DD"></div>
+      <div class="field"><label>任意險要保始日</label><input id="f_voluntaryStartDate" placeholder="YYYY-MM-DD"></div>
+      <div class="field"><label>任意險保險迄日（到期日）</label><input id="f_voluntaryEndDate" placeholder="YYYY-MM-DD"></div>
+    </div>
+    <div class="field-grid full">
+      <div class="field"><label>投保內容（險種 / 保額）</label><textarea id="f_coverageDetails" placeholder="例如：強制險、第三人責任險 100萬、車體險丙式..."></textarea></div>
+      <div class="field"><label>備註</label><textarea id="f_notes"></textarea></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-primary" id="saveBtn">儲存紀錄</button>
+      <button class="btn btn-danger" id="deleteBtn" style="display:none;">刪除此筆</button>
+      <button class="btn btn-ghost" id="cancelBtn">取消</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const FIELD_IDS = ['insuredName','insuredId','insuredPhone','insuredAddress','plateNumber','engineNumber',
+  'chassisNumber','displacement','brand','model','originalRegDate','manufactureDate','seatCount',
+  'insurerName','policyNumber','compulsoryStartDate','compulsoryEndDate','voluntaryStartDate','voluntaryEndDate',
+  'liabilityRatingLevel','totalPremium','coverageDetails','notes'];
+
+let selectedFiles = [];
+let editingId = null; // null = new record
+
+document.addEventListener('DOMContentLoaded', () => {
+  $('todayLabel').textContent = todayStr();
+  wireUpload();
+  wireModal();
+  $('exportBtn').addEventListener('click', exportCSV);
+  renderList();
+});
+
+function todayStr(){
+  const d = new Date();
+  return d.toISOString().slice(0,10);
+}
+
+/* ---------- upload ---------- */
+function wireUpload(){
+  const zone = $('dropzone');
+  const input = $('fileInput');
+  zone.addEventListener('click', () => input.click());
+  input.addEventListener('change', (e) => addFiles(e.target.files));
+  ['dragover','dragenter'].forEach(ev => zone.addEventListener(ev, (e) => {
+    e.preventDefault(); zone.classList.add('drag');
+  }));
+  ['dragleave','drop'].forEach(ev => zone.addEventListener(ev, (e) => {
+    e.preventDefault(); zone.classList.remove('drag');
+  }));
+  zone.addEventListener('drop', (e) => addFiles(e.dataTransfer.files));
+
+  $('extractBtn').addEventListener('click', runExtraction);
+  $('manualBtn').addEventListener('click', () => openModal(null));
+  $('batchModeToggle').addEventListener('change', () => {
+    $('batchHint').style.display = (selectedFiles.length > 1 && !$('batchModeToggle').checked) ? 'block' : 'none';
+  });
+}
+
+function addFiles(fileList){
+  for (const f of fileList) selectedFiles.push(f);
+  renderChips();
+  $('extractBtn').disabled = selectedFiles.length === 0;
+}
+
+function renderChips(){
+  const el = $('fileChips');
+  el.innerHTML = '';
+  selectedFiles.forEach((f, i) => {
+    const chip = document.createElement('div');
+    chip.className = 'chip';
+    chip.innerHTML = `<span>${escapeHtml(f.name)}</span>`;
+    const btn = document.createElement('button');
+    btn.textContent = '✕';
+    btn.onclick = () => { selectedFiles.splice(i,1); renderChips(); $('extractBtn').disabled = selectedFiles.length===0; };
+    chip.appendChild(btn);
+    el.appendChild(chip);
+  });
+  const showBatch = selectedFiles.length > 1;
+  $('batchOption').style.display = showBatch ? 'flex' : 'none';
+  $('batchHint').style.display = (showBatch && !$('batchModeToggle').checked) ? 'block' : 'none';
+}
+
+function fileToBase64(file){
+  return new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => resolve(r.result.split(',')[1]);
+    r.onerror = () => reject(new Error('讀取檔案失敗'));
+    r.readAsDataURL(file);
+  });
+}
+
+const EXTRACTION_PROMPT = `你是台灣車險保單的資料判讀助手。請仔細閱讀提供的保單影像/文件，只回傳一個 JSON 物件，不要有任何說明文字、不要 markdown code fence。
+
+JSON 欄位如下（找不到的欄位請填空字串 ""，不要臆測捏造數字）：
+{
+ "insuredName": "被保人姓名",
+ "insuredId": "被保人身分證字號或統一編號",
+ "insuredPhone": "聯絡電話",
+ "insuredAddress": "地址",
+ "plateNumber": "車牌號碼",
+ "engineNumber": "引擎號碼",
+ "chassisNumber": "車身號碼(如有)",
+ "displacement": "排氣量，數字+cc",
+ "brand": "廠牌",
+ "model": "車系/車型",
+ "originalRegDate": "原始發照年月，格式 YYYY-MM",
+ "manufactureDate": "出廠年月，格式 YYYY-MM",
+ "seatCount": "乘載人數，純數字",
+ "insurerName": "保險公司名稱",
+ "policyNumber": "保單號碼",
+ "liabilityRatingLevel": "責任等級係數（無賠款/理賠等級係數），純數字或代碼",
+ "compulsoryStartDate": "強制險要保起始日，格式 YYYY-MM-DD",
+ "compulsoryEndDate": "強制險保險期間迄日(到期日)，格式 YYYY-MM-DD，若文件未明示但有效期間為一年，可用起始日加一年推算，並在 notes 註明為推算",
+ "voluntaryStartDate": "任意險要保起始日，格式 YYYY-MM-DD，若與強制險相同可重複填入",
+ "voluntaryEndDate": "任意險保險期間迄日(到期日)，格式 YYYY-MM-DD，若文件未明示但有效期間為一年，可用起始日加一年推算，並在 notes 註明為推算",
+ "totalPremium": "總保費金額（純數字或含幣別文字）",
+ "coverageDetails": "投保內容摘要，列出各險種名稱與保額/保費，例如：強制險；第三人責任體傷100萬/財損20萬 保費XXXX元；車體險丙式 保額XX萬 保費XXXX元",
+ "notes": "任何需要人工複核的提醒，例如日期為推算、字跡不清等"
+}
+
+重要：文件上的日期若為民國年（例如 113年8月19日），請換算為西元年（民國年+1911）再輸出，即 2024-08-19。`;
+
+async function fileToContentBlock(file){
+  const base64 = await fileToBase64(file);
+  if (file.type === 'application/pdf'){
+    return { type:'document', source:{ type:'base64', media_type:'application/pdf', data: base64 } };
+  }
+  return { type:'image', source:{ type:'base64', media_type: file.type || 'image/jpeg', data: base64 } };
+}
+
+async function extractPolicyFromFiles(files){
+  const contentBlocks = [];
+  for (const file of files) contentBlocks.push(await fileToContentBlock(file));
+  contentBlocks.push({ type:'text', text: EXTRACTION_PROMPT });
+
+  const response = await fetch('https://api.anthropic.com/v1/messages', {
+    method:'POST',
+    headers:{ 'Content-Type':'application/json' },
+    body: JSON.stringify({
+      model:'claude-sonnet-4-6',
+      max_tokens:1000,
+      messages:[{ role:'user', content: contentBlocks }]
+    })
+  });
+  if (!response.ok) throw new Error('AI 服務回應錯誤 (' + response.status + ')');
+  const data = await response.json();
+  const textBlock = (data.content || []).find(b => b.type === 'text');
+  if (!textBlock) throw new Error('未取得判讀結果');
+  const clean = textBlock.text.replace(/```json/g,'').replace(/```/g,'').trim();
+  try{ return JSON.parse(clean); }
+  catch(e){ throw new Error('判讀結果格式異常'); }
+}
+
+let reviewQueue = [];
+let reviewIndex = 0;
+
+async function runExtraction(){
+  const statusLine = $('statusLine');
+  const statusText = $('statusText');
+  const errLine = $('errLine');
+  errLine.classList.remove('show');
+  statusLine.classList.add('show');
+  $('extractBtn').disabled = true;
+
+  const batchMode = selectedFiles.length > 1 && !$('batchModeToggle').checked;
+
+  try{
+    let results = [];
+    if (batchMode){
+      for (let i = 0; i < selectedFiles.length; i++){
+        statusText.textContent = `辨識中… (${i+1}/${selectedFiles.length})`;
+        const parsed = await extractPolicyFromFiles([selectedFiles[i]]);
+        results.push(parsed);
+      }
+    } else {
+      statusText.textContent = '辨識中…';
+      results = [await extractPolicyFromFiles(selectedFiles)];
+    }
+
+    statusLine.classList.remove('show');
+    selectedFiles = [];
+    renderChips();
+    $('fileInput').value = '';
+    $('extractBtn').disabled = true;
+
+    reviewQueue = results;
+    reviewIndex = 0;
+    openModal(null, reviewQueue[0]);
+
+  } catch(err){
+    statusLine.classList.remove('show');
+    errLine.textContent = err.message || '辨識失敗，請重試';
+    errLine.classList.add('show');
+    $('extractBtn').disabled = selectedFiles.length === 0;
+  }
+}
+
+/* ---------- modal / form ---------- */
+function wireModal(){
+  $('modalClose').onclick = closeModal;
+  $('cancelBtn').onclick = () => {
+    if (!editingId && reviewQueue.length > 1) advanceQueueOrClose();
+    else closeModal();
+  };
+  $('modalBg').addEventListener('click', (e) => { if (e.target.id === 'modalBg') closeModal(); });
+  $('saveBtn').onclick = saveRecord;
+  $('deleteBtn').onclick = deleteRecord;
+}
+
+function openModal(id, prefill){
+  editingId = id;
+  $('modalTitle').textContent = id ? '編輯保單資訊' : '確認保單資訊';
+  if (!id && reviewQueue.length > 1){
+    $('modalSub').textContent = `第 ${reviewIndex+1} / ${reviewQueue.length} 筆，請核對 AI 判讀結果後儲存，系統會接著顯示下一筆。`;
+  } else if (!id){
+    $('modalSub').textContent = '請核對 AI 判讀結果，日期若非西元年請自行修正。';
+  } else {
+    $('modalSub').textContent = '';
+  }
+  $('deleteBtn').style.display = id ? 'inline-block' : 'none';
+  $('cancelBtn').textContent = (!id && reviewQueue.length > 1) ? '跳過此筆' : '取消';
+
+  FIELD_IDS.forEach(k => { $('f_'+k).value = ''; });
+  if (prefill){
+    FIELD_IDS.forEach(k => { if (prefill[k] != null) $('f_'+k).value = prefill[k]; });
+  } else if (id){
+    const rec = getRecords().find(r => r.id === id);
+    if (rec) FIELD_IDS.forEach(k => { $('f_'+k).value = rec[k] || ''; });
+  }
+  $('modalBg').classList.add('show');
+}
+
+function closeModal(){
+  $('modalBg').classList.remove('show');
+  editingId = null;
+  reviewQueue = [];
+  reviewIndex = 0;
+}
+
+function advanceQueueOrClose(){
+  if (reviewQueue.length && reviewIndex < reviewQueue.length - 1){
+    reviewIndex += 1;
+    openModal(null, reviewQueue[reviewIndex]);
+  } else {
+    closeModal();
+    renderList();
+  }
+}
+
+async function saveRecord(){
+  const rec = { id: editingId || ('policy_' + Date.now()) };
+  FIELD_IDS.forEach(k => { rec[k] = $('f_'+k).value.trim(); });
+
+  const records = getRecords();
+  const idx = records.findIndex(r => r.id === rec.id);
+  if (idx >= 0) records[idx] = rec; else records.push(rec);
+
+  try{
+    const res = await window.storage.set('policies', JSON.stringify(records), false);
+    if (!res) throw new Error('儲存失敗');
+  } catch(e){
+    alert('儲存時發生錯誤，請再試一次');
+    return;
+  }
+  advanceQueueOrClose();
+}
+
+async function deleteRecord(){
+  if (!editingId) return;
+  if (!confirm('確定要刪除這筆保單紀錄嗎？')) return;
+  const records = getRecords().filter(r => r.id !== editingId);
+  try{ await window.storage.set('policies', JSON.stringify(records), false); }
+  catch(e){ alert('刪除時發生錯誤'); return; }
+  closeModal();
+  renderList();
+}
+
+/* ---------- CSV export ---------- */
+const CSV_LABELS = {
+  insuredName:'被保人姓名', insuredId:'身分證/統編', insuredPhone:'聯絡電話', insuredAddress:'地址',
+  plateNumber:'車牌號碼', engineNumber:'引擎號碼', chassisNumber:'車身號碼', displacement:'排氣量(cc)',
+  brand:'廠牌', model:'車系/車型', originalRegDate:'原始發照年月', manufactureDate:'出廠年月', seatCount:'乘載人數',
+  insurerName:'保險公司', policyNumber:'保單號碼', liabilityRatingLevel:'責任等級係數',
+  compulsoryStartDate:'強制險要保始日', compulsoryEndDate:'強制險保險迄日',
+  voluntaryStartDate:'任意險要保始日', voluntaryEndDate:'任意險保險迄日',
+  totalPremium:'總保費', coverageDetails:'投保內容', notes:'備註'
+};
+
+function csvEscape(v){
+  const s = String(v ?? '');
+  if (/[",\n]/.test(s)) return '"' + s.replace(/"/g,'""') + '"';
+  return s;
+}
+
+async function exportCSV(){
+  await loadRecords();
+  const records = getRecords();
+  if (records.length === 0){ alert('目前沒有資料可以匯出'); return; }
+
+  const headers = FIELD_IDS.map(k => CSV_LABELS[k] || k);
+  const rows = records.map(r => FIELD_IDS.map(k => csvEscape(r[k])).join(','));
+  const csv = '\uFEFF' + headers.map(csvEscape).join(',') + '\n' + rows.join('\n');
+
+  const blob = new Blob([csv], { type:'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `車險追蹤清單_${todayStr()}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+/* ---------- data / list ---------- */
+let _cache = null;
+function getRecords(){ return _cache || []; }
+
+async function loadRecords(){
+  try{
+    const res = await window.storage.get('policies', false);
+    _cache = res && res.value ? JSON.parse(res.value) : [];
+  } catch(e){
+    _cache = [];
+  }
+  return _cache;
+}
+
+function endDateFor(startKey, endKey, rec){
+  let end = rec[endKey];
+  let estimated = false;
+  if (!end && rec[startKey]){
+    const d = new Date(rec[startKey]);
+    if (!isNaN(d)){ d.setFullYear(d.getFullYear()+1); end = d.toISOString().slice(0,10); estimated = true; }
+  }
+  return { end: end || null, estimated };
+}
+
+function statusFor(end){
+  if (!end) return { key:'unknown', days:null };
+  const today = new Date(todayStr());
+  const endDate = new Date(end);
+  if (isNaN(endDate)) return { key:'unknown', days:null };
+  const days = Math.round((endDate - today) / 86400000);
+  let key = 'ok';
+  if (days < 0) key = 'overdue';
+  else if (days <= 30) key = 'soon';
+  return { key, days };
+}
+
+function statusOf(rec){
+  const c = endDateFor('compulsoryStartDate','compulsoryEndDate', rec);
+  const v = endDateFor('voluntaryStartDate','voluntaryEndDate', rec);
+  const cSt = statusFor(c.end);
+  const vSt = statusFor(v.end);
+  const rank = { overdue:0, soon:1, ok:2, unknown:3 };
+  // pick whichever is more urgent to drive the badge; unknown dates ignored if the other exists
+  const candidates = [
+    { ...cSt, end:c.end, estimated:c.estimated, label:'強制險' },
+    { ...vSt, end:v.end, estimated:v.estimated, label:'任意險' }
+  ].filter(x => x.key !== 'unknown');
+  let primary = candidates.length
+    ? candidates.sort((a,b) => rank[a.key]-rank[b.key] || (a.days ?? 9e9)-(b.days ?? 9e9))[0]
+    : { key:'unknown', days:null, end:null };
+  return { ...primary, compulsory:{ end:c.end, estimated:c.estimated, ...cSt }, voluntary:{ end:v.end, estimated:v.estimated, ...vSt } };
+}
+
+async function renderList(){
+  await loadRecords();
+  const records = getRecords();
+  const withStatus = records.map(r => ({ rec:r, st: statusOf(r) }));
+  withStatus.sort((a,b) => {
+    const endsA = [a.st.compulsory.end, a.st.voluntary.end].filter(Boolean).map(d => new Date(d));
+    const endsB = [b.st.compulsory.end, b.st.voluntary.end].filter(Boolean).map(d => new Date(d));
+    const da = endsA.length ? new Date(Math.min(...endsA)) : new Date('2999-12-31');
+    const db = endsB.length ? new Date(Math.min(...endsB)) : new Date('2999-12-31');
+    return da - db;
+  });
+
+  $('statOverdue').textContent = withStatus.filter(x => x.st.key==='overdue').length;
+  $('statSoon').textContent = withStatus.filter(x => x.st.key==='soon').length;
+  $('statOk').textContent = withStatus.filter(x => x.st.key==='ok').length;
+  $('countLabel').textContent = records.length ? `共 ${records.length} 筆` : '';
+
+  const area = $('listArea');
+  if (records.length === 0){
+    area.innerHTML = `<div class="empty">目前沒有任何保單紀錄<br>上傳一張保單開始追蹤到期日</div>`;
+    return;
+  }
+
+  const statusLabel = { overdue:'已逾期', soon:'即將到期', ok:'正常', unknown:'待補日期' };
+  area.innerHTML = `<div class="cards">${withStatus.map(({rec, st}) => `
+    <div class="card st-${st.key}" data-id="${rec.id}">
+      <div class="plate">
+        <div class="pl-top">TAIWAN</div>
+        <div class="pl-num">${escapeHtml(rec.plateNumber || '未登錄')}</div>
+      </div>
+      <div class="card-body">
+        <div class="owner">${escapeHtml(rec.insuredName || '（未填姓名）')}</div>
+        <div class="veh">${escapeHtml([rec.brand, rec.model].filter(Boolean).join(' ') || '車輛資料未填')}${rec.displacement ? ' · ' + escapeHtml(rec.displacement) + 'cc' : ''}</div>
+      </div>
+      <div class="card-right">
+        <span class="badge st-${st.key}">${statusLabel[st.key]}${st.key!=='unknown' ? (st.days<0 ? `（${Math.abs(st.days)}天前）` : `（${st.days}天）`) : ''}</span>
+        <div class="exp">強制險：${st.compulsory.end ? escapeHtml(st.compulsory.end) + (st.compulsory.estimated ? '（推算）' : '') : '未提供'}</div>
+        <div class="exp">任意險：${st.voluntary.end ? escapeHtml(st.voluntary.end) + (st.voluntary.estimated ? '（推算）' : '') : '未提供'}</div>
+        ${rec.totalPremium ? `<div class="prem">NT$ ${escapeHtml(rec.totalPremium)}</div>` : ''}
+      </div>
+    </div>`).join('')}</div>`;
+
+  area.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', () => openModal(card.dataset.id));
+  });
+}
+
+function escapeHtml(s){
+  return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+</script>
+</body>
+</html>
