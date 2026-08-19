@@ -2,8 +2,18 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>車險到期追蹤</title>
+
+<!-- PWA: add to home screen support -->
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjogIui7iumaquWIsOacn+i/vei5pCIsICJzaG9ydF9uYW1lIjogIui7iumaqui/vei5pCIsICJkZXNjcmlwdGlvbiI6ICLov73ouaTou4rpmqrlvLfliLbpmqroiIfku7vmhI/pmqrnmoTliLDmnJ/ml6XvvIxBSSDoh6rli5XliKToroDkv53llq4iLCAic3RhcnRfdXJsIjogIi4iLCAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwgIm9yaWVudGF0aW9uIjogInBvcnRyYWl0IiwgImJhY2tncm91bmRfY29sb3IiOiAiI0ZCRjZFQSIsICJ0aGVtZV9jb2xvciI6ICIjMUY0RTVGIiwgImljb25zIjogW3sic3JjIjogImRhdGE6aW1hZ2UvcG5nO2Jhc2U2NCxpVkJPUncwS0dnb0FBQUFOU1VoRVVnQUFBTUFBQUFEQUNBWUFBQUJTM0d3SEFBQUZka2xFUVZSNG5PM2R6MnNjWlJ6SDhlL01wdGxTVmlPbFhrcElpbmpWcytjVzBWNkNudEtEMEl2Z1grSFZ1MURFYXp3SmdtZ1FEM3BTZXVuTms4MnRScEFVaWprbFdyTE5qQWRKU2RyWkg4L004OHp6UFBONXYrN1pmUUxmOXp5enN6dTdoU1ZtYyt0dUhYc05DR2QvZDZlSXZZYnpvaTZHWVlkWjNDaDZmMktHSHZQMEhVTnZUOGJndzBWZklRUi9FZ1lmWFlRT0lkaURNL2p3S1ZRSTNoK1V3VWRJdmtNb2ZUNFl3NC9RZk0rWWw1b1lmTVRnWXpmb3ZBTXcvSWpGeCt4MUNvRGhSMnhkWjdCMUFBdy9VdEZsRmxzRndQQWpOVzFuMGprQWhoK3Bhak9iVGdFdy9FaWQ2NHd1SFFERGoxeTR6T3BTQVREOHlNMnlNN3N3QUlZZnVWcG1kcjErRkFMSXpkd0FPUG9qZDR0bWVHWUFERCtHWXQ0c2N3b0VhWTBCY1BUSDBNeWFhWFlBU0hzcEFJNytHS3FtMldZSGdMUUxBWEQweDlDOU9PUHNBSkQyUEFDTy9sQnhmdGJaQVNDTkFDQ3ROT1AwQjNyT1pwNGRBTklJQU5JSUFOSUlBTklLWGdCREdUc0FwQkVBcEJFQXBCRUFwQkVBcEszRVhvQ0NLeXVWbFk2L1pWS2IyZkdVNDFOb0JOQ0RMOTg5c0RmV1Rweis1dWlrdFBlLzNReTBJcHpoRUFOcEJBQnBCQUJwQkFCcEJBQnBCQUJwQkFCcEJBQnAyYjhSOXRhMXAzYnYxdVBZeTVoclZMamZjakZacmV5WDdULzhMOGF6N1IvVzdmRnh2bU9VNzhyUGFUTmdPUmpxLzVVU1RvRWdqUUFnalFBZ2pRQWdqUUFnalFBZ2pRQWdqUUFnalFBZ2pRQWdqZThHN2NGWHQvL2lwdmhFc1FOQUdnRkFHZ0ZBR2dGQUdnRkEyaUJ1aUZsazk0TS83ZXJsMDlqTGNESlpyZXorblVkUjE3QjNPTGFQZjdvZWRRMmhzUU5BR2dGQUdnRkFHZ0ZBR2dGQUdnRkFHZ0ZBR2dGQUdnRkFtc1E3d2E1cU0vdjk3N0czeDN2enRSTWJqOXh1dTZocXM0ZUgvdGF3UG5sbWErTzgzZzN2QXdFMG1KNFc5c25QL2o0QzBPYUdtSCttcGRjMWZQck9FM3Z2eHBHM3h4c0tUb0VnalFBZ2pRQWdqUUFnalFBZ2phdEFEVlpIdGRlZkowcmhKNUpLZm0ybUVRSE1rTUxQRTZXd2hxSGpGQWpTQ0FEU0NBRFNDQURTQ0FEU0NBRFNDQURTQ0FEU2VDT3N3Y2xwWVRlL3VlSHQ4Vkw0Z1F6dUIyakdEZ0JwQkFCcEJBQnBCQUJwQkFCcEJBQnBYQVp0Y0dsVTJ4ZTNEcnc5M3ZYSjFQbHZybHlxdks1aDQxWDNOU2dnZ0FhRm1iMzkrdE9vYXlpTCtHdFF3Q2tRcEJFQXBCRUFwQkVBcEJFQXBCRUFwQkVBcEJFQXBCRUFwRW04RTd6MTNVYlU1MC9oampBMFl3ZUFOQUtBTkFLQU5BS0FOQUtBdEN5dkFwV0YyYS9iajJJdkk2akphbVgzNytUMVA5Nzc3YXA5dmJjV2V4bE8yQUVnalFBZ2pRQWdqUUFnalFBZ2pRQWdqUUFnalFBZ2pRQWdqUUFnalFBZ0xjdlBBbFcxMllmZng3M0x5OFhuTnc5czR4VzNMNmM5bnBiMjBZL3JnVllVeHRHMGlMMEVaMWtHWUdiMjVOOVI3Q1VzN1ZubFBoaDFuZGYvbUN0T2dTQ05BQ0NOQUNDTkFDQ05BQ0NOQUNDTkFDQ05BQ0NOQUNDTkFDQ05BQ0NOQUNDTkFDQXQyMCtENXVTekI5ZnM4a3J0OURlblZhREY0QUlDNk1IZTRUajJFakFEcDBDUVJnQ1FSZ0NRUmdDUVJnQ1FSZ0NRVnU3djd1VDNYUmFBQi91N093VTdBS1FSQUtRUkFLUVJBS1NWWnYrL0dJaTlFS0JQWnpQUERnQnBCQUJwendQZ05BZ3F6czg2T3dDa1hRaUFYUUJEOStLTXN3TkEya3NCc0F0Z3FKcG1teDBBMGhvRFlCZkEwTXlhYVhZQVNKc1pBTHNBaG1MZUxNL2RBWWdBdVZzMHc1d0NRZHJDQU5nRmtLdGxabmVwSFlBSWtKdGxaM2JwVXlBaVFDNWNadFhwTlFBUklIV3VNK3I4SXBnSWtLbzJzOW5xS2hBUklEVnRaN0wxWlZBaVFDcTZ6R0tuOXdHSUFMRjFuY0hPYjRRUkFXTHhNWHRlaDNkejY2N2JEMkVCTGZnODZIcjlLQVM3QVVMelBXUEJCcGJkQUQ2Rk9yZ0dQMklUQXJvSWZWYlIyeWtMSWNCRlg2ZlR2Wit6RXdMbTZmdDFaTlFYcmNRQXM3Z1hUNUs3YWtNVXc1YmFsY0wvQUpMT1VxT0thdVJFQUFBQUFFbEZUa1N1UW1DQyIsICJzaXplcyI6ICIxOTJ4MTkyIiwgInR5cGUiOiAiaW1hZ2UvcG5nIiwgInB1cnBvc2UiOiAiYW55IG1hc2thYmxlIn0sIHsic3JjIjogImRhdGE6aW1hZ2UvcG5nO2Jhc2U2NCxpVkJPUncwS0dnb0FBQUFOU1VoRVVnQUFBZ0FBQUFJQUNBWUFBQUQwZU5UNkFBQU96VWxFUVZSNG5PM2N2WTljVndIRzRUUHIzZGdPa1lPTWxDalJpalUwbUFMSlNDQkZTR2tpaWtpUlhDTHN4aDJOYVNrb29PVWZDQzJTbTNRMFVkeENBd1ZDUWhaRmFyeEtGT1NBa2JOV1B2eTFGTlltcy9GK3pNemVlOCs1OTMyZXYrRE0zZUw5emJsanp3cE4ycnA4YmJmMkdRQzZjUHZkRzdQYVorQlovaWlWR0hpQXB3UkNIUjc2QUl3OXdISkVRZjg4NEI0WWZJQnVDWUx1ZWFBZE1QZ0F3eElFSitjQnJzam9BN1JCREt6R1ExdUMwUWRvbXhoWW5BZDFES01QTUU1aTRHZ2V6aUVNUDhBMENJR0RlU2h6akQ3QXRJbUJyM2dReGZBRHBCRUM0UUZnK0FHeUpZZEE1QWMzL0FETVN3eUJxQTlzK0FFNFNsSUlSSHhRd3cvQU1oSkNZSzMyQWZwbS9BRllWc0oyVExad0V2NTRBUFJ2cXJjQmsvdFFoaCtBUGt3dEJDYjFDc0Q0QTlDWHFXM01KR3BtYW44VUFObzJoZHVBMGQ4QUdIOEFoamFGN1JsMUFFemhEd0RBT0kxOWcwWjVoVEgyaHc3QXRJenhsY0RvYmdDTVB3Q3RHZU0yalNvQXh2aUFBY2d3dG8wYXhaWEYyQjRxQU5uRzhFcWcrUnNBNHcvQTJJeGh1NW9PZ0RFOFFBQTRTT3NiMW13QXRQN2dBT0E0TFc5Wmt3SFE4Z01EZ0dXMHVtbk5CVUNyRHdvQVZ0WGl0alVWQUMwK0lBRG9RbXNiMTB3QXRQWmdBS0JyTFcxZEV3SFEwZ01CZ0Q2MXNublZBNkNWQndFQVEybGgrNm9HUUFzUEFBQnFxTDJCMVFLZzlnY0hnTnBxYm1HVkFERCtBUEJVclUwY1BBQ01Qd0RzVjJNYkJ3MEE0dzhBQnh0Nkl3Y0xBT01QQUVjYmNpc0hDUURqRHdDTEdXb3pxLzgvQUFEQThIb1BBTi8rQVdBNVEyeG5yd0ZnL0FGZ05YMXZhRzhCWVB3QjRHVDYzRksvQVFDQVFMMEVnRy8vQU5DTnZqYTE4d0F3L2dEUXJUNjJ0ZE1BTVA0QTBJK3VOOVp2QUFBZ1VHY0I0TnMvQVBTcnk2M3RKQUNNUHdBTW82dk45UW9BQUFLZE9BQjgrd2VBWVhXeHZXNEFBQ0RRaVFMQXQzOEFxT09rRzd4eUFCaC9BS2pySkZ2c0ZRQUFCRm9wQUh6N0I0QTJyTHJKYmdBQUlORFNBZURiUHdDMFpaVnRkZ01BQUlHV0NnRGYvZ0dnVGN0dXRCc0FBQWkwY0FENDlnOEFiVnRtcTkwQUFFQ2doUUxBdDM4QUdJZEZOOXNOQUFBRUVnQUFFT2pZQUhEOUR3RGpzc2gydXdFQWdFQkhCb0J2L3dBd1RzZHR1QnNBQUFna0FBQWcwS0VCNFBvZkFNYnRxQzEzQXdBQWdRUUFBQVE2TUFCYy93UEFOQnkyNlc0QUFDQ1FBQUNBUU04RWdPdC9BSmlXZzdiZERRQUFCQklBQUJCSUFBQkFvSDBCNFAwL0FFelQxemZlRFFBQUJCSUFBQkJJQUFCQW9DOER3UHQvQUppMithMTNBd0FBZ1FRQUFBUVNBQUFRU0FBQVFLQzFVdndBRUFCUzdHMitHd0FBQ0NRQUFDQ1FBQUNBUUFJQUFBSUpBQUFJSkFBQUlKQUFBSUJBTS84SEFBRGtjUU1BQUlFRUFBQUVFZ0FBRUVnQUFFQWdBUUFBZ1FRQUFBUVNBQUFRU0FBQVFDQUJBQUNCQkFBQUJCSUFBQkJJQUFCQUlBRUFBSUhXYXg4QVdOeUZjdy9McXk4OHJIMk1mZjV4NTJ6NS9OR3M5akdBSlFrQUdKRzN2cnRUcmx5OFYvc1krMXk5dVZtMmR6WnFId05Za2xjQUFCQklBQUJBSUFFQUFJRUVBQUFFRWdBQUVFZ0FBRUFnQVFBQWdRUUFBQVFTQUFBUVNBQUFRQ0FCQUFDQkJBQUFCQklBQUJCSUFBQkFJQUVBQUlFRUFBQUVFZ0FBRUVnQUFFQWdBUUFBZ1FRQUFBUVNBQUFRU0FBQVFDQUJBQUNCMW1zZmdMcCs5UEpuNVhldjM2bDlEQmEwc2JaYit3alArTU9iSDViZDNWbnRZN0NFeDd1bHZQbkhyZHJIb0RJQkVPN1VXaWxuMTUvVVBnWWpkdWJVYmltbHZURGhjSThGRzhVckFBQ0lKQUFBSUpBQUFJQkFBZ0FBQWdrQUFBZ2tBQUFna0FBQWdFQUNBQUFDQ1FBQUNDUUFBQ0NRQUFDQVFBSUFBQUlKQUFBSUpBQUFJSkFBQUlCQUFnQUFBZ2tBQUFna0FBQWdrQUFBZ0VBQ0FBQUNDUUFBQ0NRQUFDQ1FBQUNBUUFJQUFBSUpBQUFJSkFBQUlKQUFBSUJBQWdBQUFna0FBQWdrQUFBZzBHenI4clhkMm9jQUZuUDkwdDF5NWVLOTJzZlk1K3JOemJLOXMxSDdHTUNTM0FBQVFDQUJBQUNCQkFBQUJCSUFBQkJJQUFCQUlBRUFBSUVFQUFBRUVnQUFFRWdBQUVBZ0FRQUFnUVFBQUFRU0FBQVFTQUFBUUtEMTJnZGdtbDU0N2tuNTdXc2YxejdHNUZ3NDk2RDJFWjd4cXgvL3AzejJ5SGVKUG14L3NsSGV2blcrOWpHWUtBRkFMNTViMnkwL2VmWFQyc2RnQUQ5ODZmUGFSNWlzRjArZnJuMEVKa3kyQTBBZ0FRQUFnUVFBQUFRU0FBQVFTQUFBUUNBQkFBQ0JCQUFBQkJJQUFCQklBQUJBSUFFQUFJRUVBQUFFRWdBQUVFZ0FBRUFnQVFBQWdRUUFBQVFTQUFBUVNBQUFRQ0FCQUFDQkJBQUFCQklBQUJCSUFBQkFJQUVBQUlFRUFBQUVFZ0FBRUVnQUFFQWdBUUFBZ1FRQUFBUmFyMzBBNk5zdi8vUkt1WFhuVE8xamRPTDZwYnZseXNWN3RZK3h6OVdibTJWN1o2UDJNVHF4c2JaYi92eXpmOVUrQmd6Q0RRQUFCQklBQUJCSUFBQkFJQUVBQUlFRUFBQUVFZ0FBRUVnQUFFQWdBUUFBZ1FRQUFBUVNBQUFRU0FBQVFDQUJBQUNCQkFBQUJCSUFBQkJJQUFCQUlBRUFBSUVFQUFBRVdxOTlBT2piMjI5OFZQc0lrL2JPV3gvVVBnS3dBamNBQUJCSUFBQkFJQUVBQUlFRUFBQUVFZ0FBRUVnQUFFQWdBUUFBZ1FRQUFBUVNBQUFRU0FBQVFDQUJBQUNCQkFBQUJCSUFBQkJJQUFCQUlBRUFBSUVFQUFBRUVnQUFFRWdBQUVBZ0FRQUFnUVFBQUFRU0FBQVFTQUFBUUNBQkFBQ0JCQUFBQkJJQUFCQm92ZllCb0c5Ly8vZlpjdmZ6VTdXUDBZbnZuZitpWERqM3NQWXg5dm5yaDgrWCt3K244VjNpMUt5VW4yN2RyMzBNR0lRQVlQSnV2UC9OY3V2T21kckg2TVQxUzNmTGhYUDNhaDlqbjkvZk9sKzJkelpxSDZNVEcydTdBb0FZMDhoMkFHQXBBZ0FBQWdrQUFBZ2tBQUFna0FBQWdFQUNBQUFDQ1FBQUNDUUFBQ0NRQUFDQVFBSUFBQUlKQUFBSUpBQUFJSkFBQUlCQUFnQUFBZ2tBQUFna0FBQWdrQUFBZ0VEcnRROEFmWHY3alk5cUgySFMzbm5yZzlwSEFGYmdCZ0FBQWdrQUFBZ2tBQUFna0FBQWdFQUNBQUFDQ1FBQUNDUUFBQ0NRQUFDQVFBSUFBQUlKQUFBSUpBQUFJSkFBQUlCQUFnQUFBZ2tBQUFna0FBQWdrQUFBZ0VBQ0FBQUNDUUFBQ0NRQUFDQ1FBQUNBUUFJQUFBSUpBQUFJSkFBQUlKQUFBSUJBQWdBQUFna0FBQWdrQUFBZzBIcnRBekJORDUvTXl0OCtPbHY3R0pQejdYTVB5eXZmZUZUN0dQdjg4K016NWJOSHM5ckhtS1RibjJ6VVBnSVROdHU2ZkcyMzlpR0F4VnkvZExkY3VYaXY5akgydVhwenMyenZHQ29ZRzY4QUFDQ1FBQUNBUUFJQUFBSUpBQUFJSkFBQUlKQUFBSUJBQWdBQUFna0FBQWdrQUFBZ2tBQUFnRUFDQUFBQ0NRQUFDQ1FBQUNDUUFBQ0FRT3UxRDBEL3Z2UGlnL0xpNlNlMWowRUhYbnIrVWUwalBPUDczL3FpbkQvN3VQWXg2TmlEeDdQeS9uOVAxejRHUFJJQUFYN3hnLytWMXpjL3JYME1KdW8zcjMxYyt3ajA0SVA3RytYbjcyM1dQZ1k5OGdvQUFBSUpBQUFJSkFBQUlKQUFBSUJBQWdBQUFna0FBQWdrQUFBZ2tBQUFnRUFDQUFBQ0NRQUFDQ1FBQUNDUUFBQ0FRQUlBQUFJSkFBQUlKQUFBSUpBQUFJQkFBZ0FBQWdrQUFBZ2tBQUFna0FBQWdFQUNBQUFDQ1FBQUNDUUFBQ0NRQUFDQVFBSUFBQUlKQUFBSUpBQUFJSkFBQUlCQUFnQUFBZ2tBQUFna0FBQWcwSHJ0QTlDL1gvL2w1ZHBIb0NQWEw5MHRWeTdlcTMyTWZhN2UzQ3piT3h1MWp3RXN5UTBBQUFRU0FBQVFTQUFBUUNBQkFBQ0JCQUFBQkJJQUFCQklBQUJBSUFFQUFJRUVBQUFFRWdBQUVFZ0FBRUFnQVFBQWdRUUFBQVFTQUFBUVNBQUFRQ0FCQUFDQkJBQUFCQklBQUJCSUFBQkFJQUVBQUlFRUFBQUVFZ0FBRUVnQUFFQWdBUUFBZ1FRQUFBUVNBQUFRU0FBQVFDQUJBQUNCQkFBQUJCSUFBQkJJQUFCQUlBRUFBSUVFQUFBRUVnQUFFRWdBQUVBZ0FRQUFnUVFBQUFRU0FBQVFhTDMyQVlERlBYZzhLL2NmdE5YdFQyb2ZBRmpKYk92eXRkM2Fod0FBaHRYV1Z3a0FZQkFDQUFBQ0NRQUFDQ1FBQUNDUUFBQ0FRQUlBQUFJSkFBQUlKQUFBSUpBQUFJQkFBZ0FBQWdrQUFBZ2tBQUFna0FBQWdFQnJ0OSs5TWF0OUNBQmdPTGZmdlRGekF3QUFnUVFBQUFRU0FBQVFTQUFBUUNBQkFBQ0JCQUFBQkJJQUFCQm9yWlNuL3g2dzlrRUFnUDd0YmI0YkFBQUlKQUFBSUpBQUFJQkFBZ0FBQW4wWkFINElDQURUTnIvMWJnQUFJSkFBQUlCQUFnQUFBdTBMQUw4REFJQnArdnJHdXdFQWdFQUNBQUFDQ1FBQUNQUk1BUGdkQUFCTXkwSGI3Z1lBQUFJSkFBQUlkR0FBZUEwQUFOTncyS2E3QVFDQVFBSUFBQUlkR2dCZUF3REF1QjIxNVc0QUFDQ1FBQUNBUUVjR2dOY0FBREJPeDIyNEd3QUFDSFJzQUxnRkFJQnhXV1M3M1FBQVFDQUJBQUNCRmdvQXJ3RUFZQndXM1d3M0FBQVFhT0VBY0FzQUFHMWJacXZkQUFCQW9LVUN3QzBBQUxScDJZMTJBd0FBZ1pZT0FMY0FBTkNXVmJiWkRRQUFCRm9wQU53Q0FFQWJWdDFrTndBQUVHamxBSEFMQUFCMW5XU0xUM1FESUFJQW9JNlRickJYQUFBUTZNUUI0QllBQUliVnhmYTZBUUNBUUowRWdGc0FBQmhHVjV2YjJRMkFDQUNBZm5XNXRWNEJBRUNnVGdQQUxRQUE5S1ByamUzOEJrQUVBRUMzK3RqV1hsNEJpQUFBNkVaZm0rbzNBQUFRcUxjQWNBc0FBQ2ZUNTViMmVnTWdBZ0JnTlgxdmFPK3ZBRVFBQUN4bmlPMzBHd0FBQ0RSSUFMZ0ZBSURGRExXWmc5MEFpQUFBT05xUVd6bm9Ld0FSQUFBSEczb2pCLzhOZ0FnQWdQMXFiR09WSHdHS0FBQjRxdFltVnZ0WEFDSUFnSFExdDdEcVB3TVVBUUNrcXIyQjFmOGZnTm9QQUFDRzFzTDJWUStBVXRwNEVBQXdoRlkycjRrQUtLV2RCd0lBZldscDY1b0pnRkxhZWpBQTBLWFdOcTZwQUNpbHZRY0VBQ2ZWNHJZMUZ3Q2x0UG1nQUdBVnJXNWFrd0ZRU3JzUERBQVcxZktXTlJzQXBiVDk0QURnS0sxdldOTUJVRXI3RHhBQXZtNE0yOVg4QWVkdFhiNjJXL3NNQUhDWU1Rei9udVp2QU9hTjZjRUNrR1ZzR3pXcUFDaGxmQThZZ09rYjR6YU43c0R6dkJJQW9LWXhEditlMGQwQXpCdnpnd2RnM01hK1FhTU9nRkxHL3djQVlIeW1zRDJqL3dEenZCSUFvRTlUR1A0OW83OEJtRGVsUHd3QWJabmF4a3pxdzh4ekd3QkFGNlkyL0hzbSthSG1DUUVBVmpIVjRkOHpxVmNBQjVuNkh4Q0E3aVZzeCtRLzREeTNBUUFjSldINDk4UjgwSGxDQUlCNVNjTy9KKzREenhNQ0FOa1NoMzlQN0FlZkp3UUFzaVFQLzU3NEJ6QlBDQUJNbStIL2lnZHhDREVBTUExRy8yQWV5akdFQU1BNEdmNmplVGhMRUFNQWJUUDZpL09nVmlRR0FOcGc5RmZqb1hWQURBQU15K2lmbkFmWUEwRUEwQzJEM3owUGRBQ0NBR0E1QnI5L0huQWxvZ0RnS1dOZmg0ZmVLSUVBVElXQmI5UC9BYUNJcEM1WmZPSzFBQUFBQUVsRlRrU3VRbUNDIiwgInNpemVzIjogIjUxMng1MTIiLCAidHlwZSI6ICJpbWFnZS9wbmciLCAicHVycG9zZSI6ICJhbnkgbWFza2FibGUifV19">
+<meta name="theme-color" content="#1F4E5F">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="車險追蹤">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAFV0lEQVR4nO3dwW8UZRjH8Wd3aRtaC41SxACBeFSDJnjzIsFwUfBi9GLS6MmDB/wLPOiFO8GLlx6IUQ6YYqIcoJ6MCVy86EGNtmBRkrYkFoGW3XogEKDb3Xln3pln3t9+P/edeVO++/B2ZrrbsBrYd2xq3XsNKG5uZrrhvQaXBRDwYPAIvLITEvFgqyruUk9CxOimzLhLOTAhI4sywm7GPiAxI6syWon2DiFkFBFrWkeZ0MSMomI1VOhdQcgoQ5FpnXtCEzPKUqStXEETM8qWt7HgoIkZVcnTWlDQxIyqhTaXOWhihpeQ9jIFTczwlrXBvkETM+oiS4vRb30DnnoGzXRG3fRrctOgiRl11atNthyQ0jVopjPqbrNGNwRNzEhFt1bZckDKI0EznZGax5tlQkMKQUPKg6DZbiBVD7fLhIYUgoaUphnbDaTvfsNMaEghaEghaEhpsH+GEiY0pBA0pBA0pBA0pBA0pBA0pGzxXoCSya1tazXDroL+fZN/gpj4aUZ06rUFe2bsbtBrDn2139Y67t9XKYMtB6QQNKQQNKQQNKQQNKQQNKQQNKQkeR16/7Y1Gx3qeC9jg+HAmypmZs8/dcdWa3gd+sadli2spJdHeis2s+MHF+3lp295LyOKk4eveS+hq3O/j9uJSzu8lxGMLQekEDSkEDSkEDSkEDSkEDSkEDSkEDSkEDSkEDSkpHnre3aX9xK6OnP0Cn9T6IwJDSkEDSkEDSlJ7qH72TbcsYbDtrSV45wTIx2X56Hb62Yrq3rzTDLoL16/attH2t7LyOTsm/Mu5/11edjeO7/b5dxl0nuLYqARNKQQNKQQNKQQNKQQNKQQNKQQNKQQNKRI3ikM9c43e+yvlaHCx/F8fPTU4Wt2YPJ24eOkjgkNKQQNKQQNKQQNKQQNKVzlMLMv37jqdu7Zt/90O7ciJjSkEDSkEDSkEDSkEDSkEDSkEDSkEDSkcGPFzD776Ulbut0qfJwPX1oK/oCbE5d22N0Ij49OPXfD9oyvFT5O6gjazL6/Mhrleej3X1i27SNhr/nujyeiPA999Nl/CdrYckAMQUMKQUMKQUMKQUMKVzmM56GVMKEhhaAhhaAhhaAhhaAhhaAhhaAhhaAhhaAhRfJO4bvf7jaHb0a2z48s2M7RsM+HfuvcXltte3w1ssdPqHySQS9H+OuTPNrr4a9ZvNWK8oA/7mHLASkEDSkEDSkEDSnJ/FL46t6b9ukr172XEV0Kz0Nf/merHZ/d5b2MTJjQkELQkELQkELQkELQkELQkELQkELQkELQkELQkJLMre+fF0fs4x92ei+jp48OLtpE4Cf4f/LjZJRP8C9TjG83qEoyQV//b4tdmK/3cj94cckmAj/B/+L8GA/4R8SWA1IIGlIIGlIIGlIIGlIIGlIIGlIIGlIIGlIIGlIIGlIIGlLq/bRPYk7/MmFjQ52g16h+rK0Xgo7o69/GvZcw8NhyQApBQwpBQwpBQwpBQwpBQ0pzbmaaC6GQMDcz3WBCQwpBQwpBQ0rT7N7ew3shQBH3G2ZCQwpBQ8qDoNl2IFUPt8uEhhSChpRHgmbbgdQ83iwTGlI2BM2URiq6tdp1QhM16m6zRtlyQMqmQTOlUVe92uw5oYkaddOvSbYckNI3aKY06iJLi5kmNFHDW9YGM285iBpeQtoL2kMTNaoW2lzwL4VEjarkaS3XVQ6iRtnyNpb7sh1RoyxF2ooS5b5jU+sxjoPBFmNIRrmxwrRGUbEaih4i0xohYg/D6Le+mdbIqoxWSo2PaY1uyhx6lU1T4h5sVf3P7bI9IO7B4LH9rMV+l8A11OH3p/8BlBVMaEvrnJMAAAAASUVORK5CYII=">
+<link rel="icon" type="image/png" sizes="512x512" href="data:image/png;base64,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">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -57,6 +67,13 @@
     display:flex;align-items:center;gap:7px;
   }
   .privacy-note .dot{width:6px;height:6px;border-radius:50%;background:var(--sage);flex:none;}
+
+  .install-banner{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+    background:rgba(31,78,95,.07);border:1px solid rgba(31,78,95,.18);border-radius:10px;
+    padding:12px 16px;margin-bottom:22px;font-size:13px;color:var(--navy);
+  }
+  .install-banner-actions{display:flex;gap:8px;flex:none;}
 
   .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px;}
   .stat{
@@ -220,12 +237,33 @@
     <div class="top-meta">今天是 <b id="todayLabel"></b></div>
   </header>
 
-  <p class="privacy-note"><span class="dot"></span>資料僅儲存於您個人的帳號中，與其他使用者互不共享——分享此網頁給同事使用，彼此看到的都是各自輸入的資料。</p>
+  <p class="privacy-note" id="privacyNote"><span class="dot"></span><span id="privacyNoteText"></span></p>
+
+  <div class="install-banner" id="installBanner" style="display:none;">
+    <span id="installBannerText"></span>
+    <div class="install-banner-actions">
+      <button class="btn btn-primary btn-sm" id="installBtn" style="display:none;">安裝 App</button>
+      <button class="btn btn-ghost btn-sm" id="installDismissBtn">知道了</button>
+    </div>
+  </div>
 
   <div class="stats">
     <div class="stat overdue"><div class="n" id="statOverdue">0</div><div class="l">已逾期</div></div>
     <div class="stat soon"><div class="n" id="statSoon">0</div><div class="l">30 天內到期</div></div>
     <div class="stat ok"><div class="n" id="statOk">0</div><div class="l">正常</div></div>
+  </div>
+
+  <div class="panel" id="apiKeyPanel" style="display:none;">
+    <h2>AI 設定（獨立版）</h2>
+    <p class="sub">這份網頁目前是以獨立檔案開啟，AI 辨識功能需要你自己的 Anthropic API Key 才能使用。金鑰只會存在你這台電腦的瀏覽器本機儲存空間，不會夾帶在檔案裡、也不會傳給其他打開這份檔案的人。可以到 <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener" style="color:var(--amber);">console.anthropic.com</a> 申請。</p>
+    <div class="field-grid">
+      <div class="field mono"><label>Anthropic API Key</label><input type="password" id="apiKeyInput" placeholder="sk-ant-..."></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" id="apiKeySaveBtn">儲存金鑰</button>
+      <button class="btn btn-ghost" id="apiKeyClearBtn">清除金鑰</button>
+    </div>
+    <p class="note" id="apiKeyStatus"></p>
   </div>
 
   <div class="panel">
@@ -275,7 +313,18 @@
     </div>
     <p class="sub" id="modalSub">請核對 AI 判讀結果，日期若非西元年請自行修正。</p>
 
-    <div class="section-label">被保人資料</div>
+    <div class="section-label">要保人資料</div>
+    <div class="field-grid">
+      <div class="field"><label>姓名</label><input id="f_policyholderName"></div>
+      <div class="field mono"><label>身分證 / 統一編號</label><input id="f_policyholderId"></div>
+      <div class="field"><label>聯絡電話</label><input id="f_policyholderPhone"></div>
+      <div class="field"><label>地址</label><input id="f_policyholderAddress"></div>
+    </div>
+
+    <div class="section-label">被保險人資料</div>
+    <p class="note" style="margin:-2px 0 10px;">
+      <button type="button" class="btn btn-ghost btn-sm" id="copyFromHolderBtn" style="padding:5px 10px;font-size:12px;">與要保人相同，複製過來</button>
+    </p>
     <div class="field-grid">
       <div class="field"><label>姓名</label><input id="f_insuredName"></div>
       <div class="field mono"><label>身分證 / 統一編號</label><input id="f_insuredId"></div>
@@ -322,21 +371,120 @@
 
 <script>
 const $ = (id) => document.getElementById(id);
-const FIELD_IDS = ['insuredName','insuredId','insuredPhone','insuredAddress','plateNumber','engineNumber',
+const FIELD_IDS = ['policyholderName','policyholderId','policyholderPhone','policyholderAddress',
+  'insuredName','insuredId','insuredPhone','insuredAddress','plateNumber','engineNumber',
   'chassisNumber','displacement','brand','model','originalRegDate','manufactureDate','seatCount',
   'insurerName','policyNumber','compulsoryStartDate','compulsoryEndDate','voluntaryStartDate','voluntaryEndDate',
   'liabilityRatingLevel','totalPremium','coverageDetails','notes'];
 
 let selectedFiles = [];
 let editingId = null; // null = new record
+const IS_HOSTED = typeof window.storage !== 'undefined' && window.storage !== null;
+
+/* ---------- storage abstraction: Claude artifact storage, or localStorage fallback ---------- */
+async function storageGet(key){
+  if (IS_HOSTED){
+    try{ return await window.storage.get(key, false); } catch(e){ return null; }
+  }
+  const v = localStorage.getItem('car_ins_' + key);
+  return v ? { key, value: v, shared:false } : null;
+}
+async function storageSet(key, value){
+  if (IS_HOSTED){
+    return await window.storage.set(key, value, false);
+  }
+  localStorage.setItem('car_ins_' + key, value);
+  return { key, value, shared:false };
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   $('todayLabel').textContent = todayStr();
+  $('privacyNoteText').textContent = IS_HOSTED
+    ? '資料僅儲存於您個人的帳號中，與其他使用者互不共享——分享此網頁給同事使用，彼此看到的都是各自輸入的資料。'
+    : '獨立版：資料儲存在您這台電腦的瀏覽器本機（localStorage），不會上傳到任何伺服器，也不會與其他人共享；換一台電腦或清除瀏覽器資料就看不到舊紀錄，建議定期用「匯出 CSV」備份。';
   wireUpload();
   wireModal();
+  wireApiKeyPanel();
+  wireInstallBanner();
   $('exportBtn').addEventListener('click', exportCSV);
   renderList();
 });
+
+/* ---------- PWA install banner ---------- */
+let deferredInstallPrompt = null;
+
+function safeLSGet(key){ try{ return localStorage.getItem(key); } catch(e){ return null; } }
+function safeLSSet(key, val){ try{ localStorage.setItem(key, val); } catch(e){ /* ignore */ } }
+
+function isIOS(){
+  return /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
+}
+function isStandaloneDisplay(){
+  return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+}
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+  if (!safeLSGet('car_ins_install_dismissed')){
+    showInstallBanner('android');
+  }
+});
+
+function showInstallBanner(kind){
+  const banner = $('installBanner');
+  const text = $('installBannerText');
+  const installBtn = $('installBtn');
+  if (kind === 'android'){
+    text.textContent = '把這個工具加到手機主畫面，開啟時就像 App 一樣，不用再透過瀏覽器找網址。';
+    installBtn.style.display = 'inline-block';
+  } else {
+    text.textContent = '把這個工具加到主畫面：點下方的「分享」圖示，再選「加入主畫面」，開啟時就會像 App 一樣全螢幕顯示。';
+    installBtn.style.display = 'none';
+  }
+  banner.style.display = 'flex';
+}
+
+function wireInstallBanner(){
+  if (isStandaloneDisplay()) return; // already running as installed app
+  if (safeLSGet('car_ins_install_dismissed')) return;
+  if (isIOS()) showInstallBanner('ios');
+
+  $('installBtn').onclick = async () => {
+    if (!deferredInstallPrompt) return;
+    deferredInstallPrompt.prompt();
+    await deferredInstallPrompt.userChoice;
+    deferredInstallPrompt = null;
+    $('installBanner').style.display = 'none';
+  };
+  $('installDismissBtn').onclick = () => {
+    safeLSSet('car_ins_install_dismissed', '1');
+    $('installBanner').style.display = 'none';
+  };
+}
+
+function wireApiKeyPanel(){
+  if (IS_HOSTED) return; // key handled automatically inside Claude
+  $('apiKeyPanel').style.display = 'block';
+  const input = $('apiKeyInput');
+  const status = $('apiKeyStatus');
+  const existing = localStorage.getItem('car_ins_api_key');
+  if (existing){
+    input.value = existing;
+    status.textContent = '已儲存金鑰，AI 辨識功能可以使用。';
+  }
+  $('apiKeySaveBtn').onclick = () => {
+    const v = input.value.trim();
+    if (!v){ status.textContent = '請先輸入金鑰。'; return; }
+    localStorage.setItem('car_ins_api_key', v);
+    status.textContent = '已儲存金鑰，AI 辨識功能可以使用。';
+  };
+  $('apiKeyClearBtn').onclick = () => {
+    localStorage.removeItem('car_ins_api_key');
+    input.value = '';
+    status.textContent = '已清除金鑰。';
+  };
+}
 
 function todayStr(){
   const d = new Date();
@@ -399,12 +547,18 @@ function fileToBase64(file){
 
 const EXTRACTION_PROMPT = `你是台灣車險保單的資料判讀助手。請仔細閱讀提供的保單影像/文件，只回傳一個 JSON 物件，不要有任何說明文字、不要 markdown code fence。
 
+保單上通常會分別列出「要保人」（投保、簽約、繳交保費的人）與「被保險人」（實際承保對象，可能與要保人相同也可能不同，例如公司幫員工的車投保）。請仔細分辨這兩欄，不要混用。
+
 JSON 欄位如下（找不到的欄位請填空字串 ""，不要臆測捏造數字）：
 {
- "insuredName": "被保人姓名",
- "insuredId": "被保人身分證字號或統一編號",
- "insuredPhone": "聯絡電話",
- "insuredAddress": "地址",
+ "policyholderName": "要保人姓名",
+ "policyholderId": "要保人身分證字號或統一編號",
+ "policyholderPhone": "要保人聯絡電話",
+ "policyholderAddress": "要保人地址",
+ "insuredName": "被保險人姓名",
+ "insuredId": "被保險人身分證字號或統一編號",
+ "insuredPhone": "被保險人聯絡電話",
+ "insuredAddress": "被保險人地址",
  "plateNumber": "車牌號碼",
  "engineNumber": "引擎號碼",
  "chassisNumber": "車身號碼(如有)",
@@ -441,16 +595,28 @@ async function extractPolicyFromFiles(files){
   for (const file of files) contentBlocks.push(await fileToContentBlock(file));
   contentBlocks.push({ type:'text', text: EXTRACTION_PROMPT });
 
+  const headers = { 'Content-Type':'application/json' };
+  if (!IS_HOSTED){
+    const apiKey = localStorage.getItem('car_ins_api_key');
+    if (!apiKey) throw new Error('請先在下方「AI 設定」輸入你的 Anthropic API Key');
+    headers['x-api-key'] = apiKey;
+    headers['anthropic-version'] = '2023-06-01';
+    headers['anthropic-dangerous-direct-browser-access'] = 'true';
+  }
+
   const response = await fetch('https://api.anthropic.com/v1/messages', {
     method:'POST',
-    headers:{ 'Content-Type':'application/json' },
+    headers,
     body: JSON.stringify({
       model:'claude-sonnet-4-6',
       max_tokens:1000,
       messages:[{ role:'user', content: contentBlocks }]
     })
   });
-  if (!response.ok) throw new Error('AI 服務回應錯誤 (' + response.status + ')');
+  if (!response.ok){
+    if (response.status === 401) throw new Error('API Key 無效或無權限，請確認「AI 設定」中的金鑰是否正確');
+    throw new Error('AI 服務回應錯誤 (' + response.status + ')');
+  }
   const data = await response.json();
   const textBlock = (data.content || []).find(b => b.type === 'text');
   if (!textBlock) throw new Error('未取得判讀結果');
@@ -513,6 +679,12 @@ function wireModal(){
   $('modalBg').addEventListener('click', (e) => { if (e.target.id === 'modalBg') closeModal(); });
   $('saveBtn').onclick = saveRecord;
   $('deleteBtn').onclick = deleteRecord;
+  $('copyFromHolderBtn').onclick = () => {
+    $('f_insuredName').value = $('f_policyholderName').value;
+    $('f_insuredId').value = $('f_policyholderId').value;
+    $('f_insuredPhone').value = $('f_policyholderPhone').value;
+    $('f_insuredAddress').value = $('f_policyholderAddress').value;
+  };
 }
 
 function openModal(id, prefill){
@@ -564,7 +736,7 @@ async function saveRecord(){
   if (idx >= 0) records[idx] = rec; else records.push(rec);
 
   try{
-    const res = await window.storage.set('policies', JSON.stringify(records), false);
+    const res = await storageSet('policies', JSON.stringify(records));
     if (!res) throw new Error('儲存失敗');
   } catch(e){
     alert('儲存時發生錯誤，請再試一次');
@@ -577,7 +749,7 @@ async function deleteRecord(){
   if (!editingId) return;
   if (!confirm('確定要刪除這筆保單紀錄嗎？')) return;
   const records = getRecords().filter(r => r.id !== editingId);
-  try{ await window.storage.set('policies', JSON.stringify(records), false); }
+  try{ await storageSet('policies', JSON.stringify(records)); }
   catch(e){ alert('刪除時發生錯誤'); return; }
   closeModal();
   renderList();
@@ -585,7 +757,8 @@ async function deleteRecord(){
 
 /* ---------- CSV export ---------- */
 const CSV_LABELS = {
-  insuredName:'被保人姓名', insuredId:'身分證/統編', insuredPhone:'聯絡電話', insuredAddress:'地址',
+  policyholderName:'要保人姓名', policyholderId:'要保人身分證/統編', policyholderPhone:'要保人電話', policyholderAddress:'要保人地址',
+  insuredName:'被保險人姓名', insuredId:'被保險人身分證/統編', insuredPhone:'被保險人電話', insuredAddress:'被保險人地址',
   plateNumber:'車牌號碼', engineNumber:'引擎號碼', chassisNumber:'車身號碼', displacement:'排氣量(cc)',
   brand:'廠牌', model:'車系/車型', originalRegDate:'原始發照年月', manufactureDate:'出廠年月', seatCount:'乘載人數',
   insurerName:'保險公司', policyNumber:'保單號碼', liabilityRatingLevel:'責任等級係數',
@@ -626,7 +799,7 @@ function getRecords(){ return _cache || []; }
 
 async function loadRecords(){
   try{
-    const res = await window.storage.get('policies', false);
+    const res = await storageGet('policies');
     _cache = res && res.value ? JSON.parse(res.value) : [];
   } catch(e){
     _cache = [];
